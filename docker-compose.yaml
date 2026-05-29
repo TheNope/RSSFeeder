@@ -1,0 +1,21 @@
+services:
+  rss-feeder:
+    container_name: rss-feeder
+    image: thenope.rssfeeder:latest
+    ports:
+      - "80:80"
+    restart: always
+    environment:
+      - Application__MinimumLogLevel=1
+      - Application__HttpConnectionsLogLevel=1
+      - Application__Origins:['http://localhost:80']
+      - TwitchToken=${TWITCH_TOKEN}
+      - TwitchClientId=${TWITCH_CLIENT_ID}
+      - TZ=Europe/Berlin
+    networks:
+      - rss-feeder
+
+networks:
+  rss-feeder:
+    name: rss-feeder
+    driver: bridge

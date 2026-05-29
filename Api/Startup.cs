@@ -37,7 +37,7 @@ public class Startup
         var settings = Configuration.GetSection("Application").Get<ApplicationSettings>();
 
         var origins = string.IsNullOrEmpty(settings.Origins)
-            ? new[] { "http://localhost:3000/", "http://localhost:81" }
+            ? new[] { "http://localhost:3000/", "http://localhost:80" }
             : JArray.Parse(settings.Origins).ToObject<string[]>();
 
         Console.WriteLine(
