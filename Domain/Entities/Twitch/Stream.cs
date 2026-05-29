@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Twitch;
 
-public class TwitchStream
+public class Stream
 {
     [JsonPropertyName("id")]
     public string Id { get; set; }

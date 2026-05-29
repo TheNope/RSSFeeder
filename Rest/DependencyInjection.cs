@@ -9,9 +9,9 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddRestInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var twitchToken = configuration.GetSection("TwitchToken").Value;
         var twitchClientId = configuration.GetSection("TwitchClientId").Value;
-        var twitchClient = new TwitchClient("https://api.twitch.tv", twitchToken, twitchClientId);
+        var twitchClientSecret = configuration.GetSection("TwitchClientSecret").Value;
+        var twitchClient = new TwitchClient("https://api.twitch.tv", twitchClientId, twitchClientSecret);
 
         services.AddSingleton<ITwitchClient>(twitchClient);
         

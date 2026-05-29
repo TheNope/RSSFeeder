@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.Entities;
+using Domain.Entities.Twitch;
 
 namespace Rest.Interfaces;
 
 public interface ITwitchClient
 {
-    Task<List<TwitchStream>> GetStreams(string channel);
+    Task UpdateToken();
+    Task<List<Stream>> GetStreams(string channel);
 }

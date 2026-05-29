@@ -7,8 +7,8 @@
         "ASPNETCORE_URLS": "http://+:12345",
         "Application:MinimumLogLevel": "1",
         "Application:HttpConnectionsLogLevel": "1",
-        "TwitchToken": "",
         "TwitchClientId": "",
+        "TwitchClientSecret": "",
         "TZ": "Europe/Berlin"
       },
       "applicationUrl": "http://localhost:12345/RSSFeeder"

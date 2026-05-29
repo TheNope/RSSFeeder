@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Models;
 using Domain.Entities;
+using Domain.Entities.Twitch;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Rest.Interfaces;
@@ -30,8 +33,19 @@ namespace Application.UseCases.Twitch
         {
             try
             {
-                var streams = await _twitchClient.GetStreams(request.Channel);
-
+                List<Stream> streams;
+                
+                try
+                {
+                    streams = await _twitchClient.GetStreams(request.Channel);
+                }
+                catch (HttpRequestException ex)
+                {
+                    _logger.LogWarning("Twitch request failed, trying to regenerate twitch token...");
+                    await _twitchClient.UpdateToken();
+                    streams = await _twitchClient.GetStreams(request.Channel);
+                }
+                
                 var feed = new Feed
                 {
                     Title = request.Channel,

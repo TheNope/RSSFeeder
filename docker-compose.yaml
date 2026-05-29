@@ -9,8 +9,8 @@ services:
       - Application__MinimumLogLevel=1
       - Application__HttpConnectionsLogLevel=1
       - Application__Origins:['http://localhost:80']
-      - TwitchToken=${TWITCH_TOKEN}
       - TwitchClientId=${TWITCH_CLIENT_ID}
+      - TwitchClientSecret=${TWITCH_CLIENT_SECRET}
       - TZ=Europe/Berlin
     networks:
       - rss-feeder
