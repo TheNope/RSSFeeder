@@ -1,9 +1,8 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Application.Common.Behaviours;
-using AutoMapper;
+using CQRS;
+using CQRS.Interfaces;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
@@ -12,17 +11,14 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            // Register MediatR
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-            
-            // Register AutoMapper
-            services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
+            // Register Mediator
+            services.AddMediator(Assembly.GetExecutingAssembly());
             
             // Register Validator
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             
             // Register pipeline behaviors
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ExceptionHandlingBehavior<,>));
+            services.AddPipelineBehavior(typeof(ExceptionHandlingBehavior<,>));
 
             return services;
         }

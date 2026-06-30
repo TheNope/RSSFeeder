@@ -5,9 +5,9 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Models;
+using CQRS.Interfaces;
 using Domain.Entities;
 using Domain.Entities.Twitch;
-using MediatR;
 using Microsoft.Extensions.Logging;
 using Rest.Interfaces;
 
@@ -71,6 +71,8 @@ namespace Application.UseCases.Twitch
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
+                _logger.LogError(ex.StackTrace);
                 return new HttpResult(ex);
             }
         }

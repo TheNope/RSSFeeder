@@ -10,6 +10,7 @@ COPY ["NuGet.Config", "/root/.nuget/NuGet/NuGet.Config"]
 
 COPY ["./Api/Api.csproj", "./Api/"]
 COPY ["./Domain/Domain.csproj", "./Domain/"]
+COPY ["./CQRS/CQRS.csproj", "./CQRS/"]
 COPY ["./Rest/Rest.csproj", "./Rest/"]
 COPY ["./Application/Application.csproj", "./Application/"]
 
@@ -17,6 +18,7 @@ RUN dotnet restore "./Api/Api.csproj"
 
 COPY ["./Api/", "./Api/"]
 COPY ["./Domain/", "./Domain/"]
+COPY ["./CQRS/", "./CQRS/"]
 COPY ["./Rest/", "./Rest/"]
 COPY ["./Application/", "./Application/"]
 

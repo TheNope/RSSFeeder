@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ public static class DependencyInjection
     {
         var twitchClientId = configuration.GetSection("TwitchClientId").Value;
         var twitchClientSecret = configuration.GetSection("TwitchClientSecret").Value;
+        
         var twitchClient = new TwitchClient("https://api.twitch.tv", twitchClientId, twitchClientSecret);
 
         services.AddSingleton<ITwitchClient>(twitchClient);

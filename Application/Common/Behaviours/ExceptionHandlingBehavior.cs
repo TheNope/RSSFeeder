@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Models;
-using MediatR;
+using CQRS.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Common.Behaviours;
