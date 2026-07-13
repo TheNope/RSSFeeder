@@ -10,6 +10,7 @@ using Domain.Entities;
 using Domain.Entities.Twitch;
 using Microsoft.Extensions.Logging;
 using Rest.Interfaces;
+using ServiceStack.Text;
 
 namespace Application.UseCases.Twitch
 {
@@ -35,6 +36,8 @@ namespace Application.UseCases.Twitch
             {
                 List<Stream> streams;
                 
+                _logger.LogInformation($"Twitch streaming request started for channel {request.Channel}");
+                
                 try
                 {
                     streams = await _twitchClient.GetStreams(request.Channel);
@@ -42,7 +45,13 @@ namespace Application.UseCases.Twitch
                 catch (HttpRequestException ex)
                 {
                     _logger.LogWarning("Twitch request failed, trying to regenerate twitch token...");
-                    await _twitchClient.UpdateToken();
+                    var token = await _twitchClient.UpdateToken();
+
+                    if (token.Token.IsNullOrEmpty())
+                        throw new HttpRequestException("Twitch token generation failed");
+                            
+                    _logger.LogInformation("Twitch token generated successfully.");
+                    
                     streams = await _twitchClient.GetStreams(request.Channel);
                 }
                 
@@ -66,13 +75,13 @@ namespace Application.UseCases.Twitch
                         Link = "https://twitch.tv/" + stream.UserLogin
                     });
                 }
+                
+                _logger.LogInformation($"Twitch streaming request completed successfully for channel {request.Channel}");
 
                 return new HttpResult(feed.Serialize());
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.StackTrace);
                 return new HttpResult(ex);
             }
         }

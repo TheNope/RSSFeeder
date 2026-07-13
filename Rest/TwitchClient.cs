@@ -33,7 +33,7 @@ public class TwitchClient :  ITwitchClient
         };
     }
 
-    public async Task UpdateToken()
+    public async Task<AccessToken> UpdateToken()
     {
         var content = new FormUrlEncodedContent([
             new KeyValuePair<string, string>("client_id", _clientId), 
@@ -52,6 +52,8 @@ public class TwitchClient :  ITwitchClient
         HttpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         HttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken.Token}");
         HttpClient.DefaultRequestHeaders.Add("Client-Id", _clientId);
+        
+        return accessToken;
     }
 
     public async Task<List<Stream>> GetStreams(string channel)

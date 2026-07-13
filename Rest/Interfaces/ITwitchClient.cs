@@ -6,6 +6,6 @@ namespace Rest.Interfaces;
 
 public interface ITwitchClient
 {
-    Task UpdateToken();
+    Task<AccessToken> UpdateToken();
     Task<List<Stream>> GetStreams(string channel);
 }
